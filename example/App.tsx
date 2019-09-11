@@ -117,7 +117,6 @@ class App extends Component {
   }
 
   render() {
-    const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
     const { login, password } = this.state
     const disableOnFirstStartWithoutShowingError =
       login.text.length === 0 || password.text.length === 0

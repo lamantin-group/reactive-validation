@@ -1,16 +1,16 @@
 {
-  "name": "react-native-library",
+  "name": "reactive-validation",
   "version": "1.0.0",
-  "author": "whalemare",
-  "description": "Library bootstrap",
-  "license": "Apache 2.0",
+  "author": "lamantin",
+  "description": "Simple ever validation logic for your apps",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/whalemare/react-native-library.git",
-    "start:first": "npm i && cd example && npm i && npm run android"
+    "url": "git+https://github.com/lamantin-group/reactive-validation.git"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "validation"
   ],
   "main": "index.ts",
   "scripts": {
@@ -23,8 +23,7 @@
     "ios": "cd example && npm run ios"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-native": "^0.41.2"
+    "react": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
