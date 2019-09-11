@@ -3,7 +3,7 @@ reactive-validation
 
 Simple ever validation logic for your apps
 
-[v1](.github/v1.gif)
+![v1](.github/v1.gif)
 
 Install
 =======
