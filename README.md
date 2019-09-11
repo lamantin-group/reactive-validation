@@ -30,7 +30,7 @@ After that, attach validaton rules to your fields and combine validation results
 
 Firstly, you need create `Validatable` rule
 ```ts
-const shouldContainValidator: Validatable<string> = { // 
+const shouldContainValidator: Validatable<string> = {
   errorMessage: 'Should contain "a" letter, because I want',
   validate: (value: string) => value.includes('a'),
 }
@@ -92,8 +92,10 @@ render() {
 }
 ```
 
-Why
----
+Thats all.
+
+Benefits
+--------
 * You can use it in model layer, for consistent architecture rules
 * You can use it in any input text view, because it is not attached to something
 * You have typings without using not-contracted magic of other libraries
