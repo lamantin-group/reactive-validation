@@ -8,16 +8,16 @@
  * @format
  */
 
-import React, { Fragment } from 'react'
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
-
+import React, { Component, Fragment } from 'react'
+import { Button, StyleSheet, Text, TextInput, View, Alert } from 'react-native'
 import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen'
+  MaxLengthRule,
+  MinLengthRule,
+  NotNullRule,
+  ShouldNotIncludeRule,
+  Validator,
+} from 'react-native-library'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -58,55 +58,121 @@ const styles = StyleSheet.create({
   },
 })
 
-import { Button } from 'react-native-library'
-
-const App = () => {
-  const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
-
+function EditInput(props: {
+  value: string
+  placeholder: string
+  error: string | null
+  onChangeText: (text: string) => void
+}) {
   return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic" style={styles.scrollView}>
-          <Header />
-          <Button text="Hello bitches" />
-          {!usingHermes ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this screen and then
-                come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
+    <View>
+      <TextInput
+        style={{
+          fontSize: 24,
+          color: 'black',
+        }}
+        placeholder={props.placeholder}
+        value={props.value}
+        onChangeText={props.onChangeText}
+      />
+      {props.error && <Text style={{ color: 'red' }}>{props.error}</Text>}
+    </View>
   )
+}
+
+const loginValidator = new Validator<string>()
+loginValidator.push(new NotNullRule())
+loginValidator.push(new MinLengthRule(3))
+loginValidator.push(new MaxLengthRule(6, 'custom error message'))
+loginValidator.push({
+  errorMessage: 'Should contain "a" letter, because I want',
+  validate: value => value.includes('a'),
+})
+
+const passwordValidator = new Validator<string>()
+passwordValidator.push(new MinLengthRule(6))
+passwordValidator.push(new ShouldNotIncludeRule('word'))
+
+interface AppState {
+  login: {
+    text: string
+    error: string | null
+  }
+  password: {
+    text: string
+    error: string | null
+  }
+  buttonLoginDisabled: boolean
+}
+class App extends Component {
+  state = {
+    login: {
+      text: '',
+      error: null,
+    },
+    password: {
+      text: '',
+      error: null,
+    },
+  }
+
+  render() {
+    const usingHermes = typeof HermesInternal === 'object' && HermesInternal !== null
+    const { login, password } = this.state
+    const disableOnFirstStartWithoutShowingError =
+      login.text.length === 0 || password.text.length === 0
+
+    const buttonDisabled =
+      disableOnFirstStartWithoutShowingError ||
+      !!(this.state.login.error || this.state.password.error)
+
+    return (
+      <Fragment>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            marginHorizontal: 32,
+          }}>
+          <EditInput
+            placeholder="Enter login"
+            value={login.text}
+            error={login.error}
+            onChangeText={text => {
+              this.setState({
+                login: {
+                  text: text,
+                  error: loginValidator.validate(text),
+                },
+              })
+            }}
+          />
+
+          <EditInput
+            placeholder="Enter password"
+            value={password.text}
+            error={password.error}
+            onChangeText={text => {
+              this.setState({
+                password: {
+                  text: text,
+                  error: passwordValidator.validate(text),
+                },
+              })
+            }}
+          />
+
+          <Button
+            title="Login"
+            disabled={buttonDisabled}
+            onPress={() => {
+              Alert.alert('Hello')
+            }}
+          />
+        </View>
+      </Fragment>
+    )
+  }
 }
 
 export default App
