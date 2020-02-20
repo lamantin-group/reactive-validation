@@ -13,6 +13,7 @@
     "validation"
   ],
   "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm version patch && yarn build",
