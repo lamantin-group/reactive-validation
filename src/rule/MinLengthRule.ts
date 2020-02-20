@@ -1,4 +1,4 @@
-import { Validatable } from './Validatable'
+import { Validatable } from '../Validatable'
 
 export class MinLengthRule implements Validatable<string> {
   private minLength: number

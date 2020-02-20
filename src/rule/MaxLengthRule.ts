@@ -1,4 +1,4 @@
-import { Validatable } from './Validatable'
+import { Validatable } from '../Validatable'
 
 export class MaxLengthRule implements Validatable<string> {
   private maxLength: number

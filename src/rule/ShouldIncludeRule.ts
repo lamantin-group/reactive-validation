@@ -1,4 +1,4 @@
-import { Validatable } from './Validatable'
+import { Validatable } from '../Validatable'
 
 export class ShouldIncludeRule implements Validatable<string> {
   private symbols: string

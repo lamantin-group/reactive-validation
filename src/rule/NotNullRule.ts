@@ -1,13 +1,13 @@
-import { Validatable } from './Validatable'
+import { Validatable } from '../Validatable'
 
-export class NotNullRule implements Validatable<any> {
+export class NotNullRule<T = any> implements Validatable<T> {
   errorMessage = 'value is null'
 
   constructor(error = 'value is null') {
     this.errorMessage = error
   }
 
-  validate(data?: any): boolean {
+  validate(data?: T): boolean {
     return data !== null
   }
 }
