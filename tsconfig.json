@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["es5", "es6", "dom"],
-    // "rootDir": "src",
+    "rootDir": "src",
     "module": "commonjs",
     "declaration": true,
     "esModuleInterop": true,
@@ -12,7 +12,8 @@
     "outDir": "build",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
   },
   "include": [
     "src"

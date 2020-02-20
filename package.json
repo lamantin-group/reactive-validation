@@ -1,6 +1,6 @@
 {
   "name": "reactive-validation",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "author": "lamantin",
   "description": "Simple power validation logic for your apps",
   "license": "MIT",
@@ -14,6 +14,8 @@
   ],
   "main": "build/src/index.js",
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm version patch && yarn build",
     "start": "react-native start",
     "doctor": "npm run doctor:remove && npm run doctor:install",
     "doctor:remove": "rm -rf node_modules && rm -f package-lock.json && rm -rf example/node_modules && rm -f example/package-lock.json && rm -f example/ios/Podfile.lock && rm -rf example/ios/Pods && rm -rf example/ios/build",
