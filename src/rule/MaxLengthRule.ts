@@ -1,6 +1,6 @@
 import { Validatable } from '../Validatable'
 
-export class MaxLengthRule implements Validatable<string> {
+export class MaxLengthRule implements Validatable<string | undefined | null> {
   private maxLength: number
 
   constructor(maxLength: number, error: string = 'value should be lower than ' + maxLength) {
@@ -10,7 +10,7 @@ export class MaxLengthRule implements Validatable<string> {
 
   errorMessage = ''
 
-  validate(data: string): boolean {
-    return data.length < this.maxLength
+  validate(data: string | undefined | null): boolean {
+    return (data || '').length < this.maxLength
   }
 }
