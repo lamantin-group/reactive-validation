@@ -58,7 +58,7 @@
     "mocha": "^7.0.1",
     "prettier-eslint": "^9.0.0",
     "react": "16.8.6",
-    "react-native": "0.60.4",
+    "react-native": "0.62.3",
     "ts-node": "^8.6.2",
     "typescript": "^3.4.3"
   },
